@@ -19,7 +19,7 @@ name: Test
 runs-on: ubuntu-latest
 steps:
   - uses: actions/checkout@v2
-  - uses: illinois/reverse-copycat@v1
+  - uses: illinois/local-copy@v1
     with:
       src_path: source
       dst_path: dest
