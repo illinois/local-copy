@@ -1,0 +1,43 @@
+name: reverse-copycat
+description: "Moves and replaces files in a "
+inputs:
+  src_path:
+    description: >
+      A path from $GITHUB_WORKSPACE$ to a directory that where the files to be copied are
+      located. For copying files, the path to this directory will be prepended onto the path for 
+      any files listed in `from`. For cases where the files that are copied are not all in the
+      same directory, `src_path` should not be modified from its default.
+    default: ''
+    required: false
+  dst_path:
+    description: >
+      A path from $GITHUB_WORKSPACE$ to a directory that where the files to be copied to are
+      located. For copying files, the path to this directory will be prepended onto the path for 
+      any files listed in `to`. For cases where the destinations for copied files are
+      not all in the same directory, `dst_path` should not be modified from its default.
+    default: ''
+    required: false
+  from:
+    description: >
+      A strictly comma separated list of files to be copied. `from` and `to` are treated
+      as parallel arrays; the first file specified by `from` will be copied to the first location
+      specified by `to`, and so on. $GITHUB_WORKSPACE$ is treated as the base directory, unless
+      `src_path` is specified.
+    required: true
+  to:
+    description: >
+      A strictly comma separated list of files to be copied. `from` and `to` are treated
+      as parallel arrays; the first file specified by `from` will be copied to the first location
+      specified by `to`, and so on. $GITHUB_WORKSPACE$ is treated as the base directory, unless
+      `dst_path` is specified.
+    required: true
+runs:
+  using: composite
+  steps:
+    - run: chmod +x ${{ github.action_path }}/copy.sh && ${{ github.action_path }}/copy.sh
+      shell: bash
+      env:
+        INPUT_SRC_PATH: ${{ inputs.src_path }}
+        INPUT_DST_PATH: ${{ inputs.dst_path }}
+        INPUT_FROM: ${{ inputs.from }}
+        INPUT_TO: ${{ inputs.to }}
