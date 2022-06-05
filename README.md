@@ -1,18 +1,18 @@
-# reverse-copycat
+# local-copy
 
 > A small Github action for copying files during workflow runtime.
 
-`reverse-copycat` is a simple interface for copying files during the runtime of a workflow.
+`local-copy` is a simple interface for copying files during the runtime of a workflow.
 
 ## Prerequisites
 
-`reverse-copycat` assumes that any workflow using it is self-hosted. `reverse-copycat` requires:
+Since `local-copy` is a composite action, it assumes that any workflow using it is self-hosted. `local-copy` requires:
 - A Unix-like operating system
 - Bash v4.4+
 
 ## Usage:
 
-The following is an example of a short workflow snippet that leverages `reverse-copycat` to move files locally in a repository fetched by `actions/checkout`:
+The following is an example of a short workflow snippet that leverages `local-copy` to move files locally in a repository fetched by `actions/checkout`:
 
 ```yaml
 name: Test
