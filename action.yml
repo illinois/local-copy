@@ -1,5 +1,5 @@
 name: reverse-copycat
-description: "Moves and replaces files in a "
+description: "Locally copy files"
 inputs:
   src_path:
     description: >
