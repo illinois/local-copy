@@ -7,11 +7,9 @@ TO="$INPUT_TO"
 
 # Add terminal forward slashes if they don't exist in SRC_PATH and DST_PATH
 if [ ! -z "$SRC_PATH" ] && [ "${SRC_PATH: -1}" != "/" ]; then
-    echo "Got here"
     SRC_PATH="$SRC_PATH/"
 fi
 if [ ! -z "$DST_PATH" -a "${DST_PATH: -1}" != "/" ]; then
-    echo "Got here (dst)"
     DST_PATH="$DST_PATH/"
 fi
 
