@@ -2093,7 +2093,7 @@ const copyFiles = (src, dest, from, to) => {
 var srcPath = core.getInput('src_path');
 srcPath = !srcPath.endsWith('/') && srcPath != '' ? `${srcPath}/` : srcPath;
 
-var destPath = core.getInput('dest_path');
+var destPath = core.getInput('dst_path');
 destPath = !destPath.endsWith('/') && destPath != '' ? `${destPath}/` : destPath;
 
 const fromList = preprocessCopyList(core.getInput('from'));
