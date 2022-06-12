@@ -32,12 +32,5 @@ inputs:
       `dst_path` is specified.
     required: true
 runs:
-  using: composite
-  steps:
-    - run: chmod +x ${{ github.action_path }}/copy.sh && ${{ github.action_path }}/copy.sh
-      shell: bash
-      env:
-        INPUT_SRC_PATH: ${{ inputs.src_path }}
-        INPUT_DST_PATH: ${{ inputs.dst_path }}
-        INPUT_FROM: ${{ inputs.from }}
-        INPUT_TO: ${{ inputs.to }}
+  using: "node12"
+  main: "./dist/index.js"

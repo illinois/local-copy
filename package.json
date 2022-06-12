@@ -1,0 +1,23 @@
+{
+  "name": "local-copy",
+  "version": "1.0.0",
+  "description": "> A small Github action for copying files during workflow runtime.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/illinois/local-copy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/illinois/local-copy/issues"
+  },
+  "homepage": "https://github.com/illinois/local-copy#readme",
+  "dependencies": {
+    "@actions/core": "^1.8.2"
+  }
+}
