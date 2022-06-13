@@ -4,12 +4,6 @@
 
 `local-copy` is a simple interface for copying files during the runtime of a workflow.
 
-## Prerequisites
-
-Since `local-copy` is a composite action, it assumes that any workflow using it is self-hosted. `local-copy` requires:
-- A Unix-like operating system
-- Bash v4.4+
-
 ## Usage:
 
 The following is an example of a short workflow snippet that leverages `local-copy` to move files locally in a repository fetched by `actions/checkout`:
