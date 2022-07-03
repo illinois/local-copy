@@ -17,19 +17,11 @@ inputs:
       not all in the same directory, `dst_path` should not be modified from its default.
     default: ''
     required: false
-  from:
+  copy:
     description: >
-      A strictly comma separated list of files to be copied. `from` and `to` are treated
-      as parallel arrays; the first file specified by `from` will be copied to the first location
-      specified by `to`, and so on. $GITHUB_WORKSPACE$ is treated as the base directory, unless
-      `src_path` is specified.
-    required: true
-  to:
-    description: >
-      A strictly comma separated list of files to be copied. `from` and `to` are treated
-      as parallel arrays; the first file specified by `from` will be copied to the first location
-      specified by `to`, and so on. $GITHUB_WORKSPACE$ is treated as the base directory, unless
-      `dst_path` is specified.
+      A comma separated list of source and destination pairings for copying a file. Each
+      pairing is of the format <from>:<to>. $GITHUB_WORKSPACE$ is treated as the base directory,
+      unless `src_path` and `dst_path` are specified.
     required: true
 runs:
   using: "node12"

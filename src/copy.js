@@ -2,19 +2,39 @@ const core = require('@actions/core');
 const fs = require('fs');
 
 const preprocessCopyList = (copyList) => {
-	const prepList = copyList.replace(/\s/g, '');
+	var prepList = copyList.replace(/\s/g, '');
 	if (prepList == '') {
 		return []
 	}
-	return prepList.split(',');
+	prepList = prepList.split(',');
+	for (let i = 0; i < prepList.length; i++) {
+		prepList[i] = prepList[i].split(':');
+		if (prepList[i].length != 2) {
+			core.setFailed(`Failed to parse copy list line ${prepList[i]}. Exiting...`)
+		}
+	}
+	return prepList;
 }
 
-const copyFiles = (src, dest, from, to) => {
-	for (let i = 0; i < from.length; i++) {
+var copyRecursiveSync = function(src, dest) {
+	var isDirectory = fs.statSync(src).isDirectory();
+	if (isDirectory) {
+	  fs.mkdirSync(dest);
+	  fs.readdirSync(src).forEach(function(child) {
+		copyRecursiveSync(path.join(src, child),
+						  path.join(dest, child));
+	  });
+	} else {
+	  fs.copyFileSync(src, dest);
+	}
+}
+
+const copyFiles = (src, dest, copyList) => {
+	for (let i = 0; i < copyList.length; i++) {
 		try {
-			fs.copyFileSync(`${src}${from[i]}`, `${dest}${to[i]}`);
+			copyRecursiveSync(`${src}${copyList[i][0]}`, `${dest}${copyList[i][1]}`)
 		} catch (err) {
-			core.setFailed(`Failure to copy ${from[i]} to ${to[i]} with error message: \n ${err.message}`);
+			core.setFailed(`Failure to copy ${copyList[i][0]} to ${copyList[i][1]} with error message: \n ${err.message}`);
 			return;
 		}
 	}
@@ -26,11 +46,6 @@ srcPath = !srcPath.endsWith('/') && srcPath != '' ? `${srcPath}/` : srcPath;
 var destPath = core.getInput('dst_path');
 destPath = !destPath.endsWith('/') && destPath != '' ? `${destPath}/` : destPath;
 
-const fromList = preprocessCopyList(core.getInput('from'));
-const toList = preprocessCopyList(core.getInput('to'));
+const copyList = preprocessCopyList(core.getInput('copy'));
 
-if (fromList.length != toList.length) {
-	core.setFailed('Length of \`from\` and \`to\` are not the same.');
-}
-
-copyFiles(srcPath, destPath, fromList, toList);
+copyFiles(srcPath, destPath, copyList);

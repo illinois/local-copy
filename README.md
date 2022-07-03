@@ -1,12 +1,12 @@
 # local-copy
 
-> A small Github action for copying files during workflow runtime.
+> A small Github action for copying files and directories during workflow runtime.
 
-`local-copy` is a simple interface for copying files during the runtime of a workflow.
+`local-copy` is a simple interface for copying files and directories during the runtime of a workflow.
 
 ## Usage:
 
-The following is an example of a short workflow snippet that leverages `local-copy` to move files locally in a repository fetched by `actions/checkout`:
+The following is an example of a short workflow snippet that uses `local-copy` to move files locally in a repository fetched by `actions/checkout`:
 
 ```yaml
 name: Test
@@ -17,8 +17,9 @@ steps:
     with:
       src_path: source
       dst_path: dest
-      from: test-from.txt, Makefile
-      to: test-to.txt, Makefile
+      copy: >
+        test-from.txt : test-from.txt,
+        Makefile : Makefile
 ```
 
 Assuming this step is correct, the repository will have the following local directory structure:
@@ -39,5 +40,4 @@ test-repo/
 |--------------------|--------|-----------|-------|
 |`src_path`|No|A path from `$GITHUB_WORKSPACE$` to a directory that where the files to be copied are located. For copying files, the path to this directory will be prepended onto the path for  any files listed in `from`. For cases where the files that are copied are not all in the same directory, `src_path` should not be modified from its default.|`''`|
 |`dst_path`|No|A path from `$GITHUB_WORKSPACE$` to a directory that where the files to be copied to are located. For copying files, the path to this directory will be prepended onto the path for  any files listed in `to`. For cases where the destinations for copied files are not all in the same directory, `dst_path` should not be modified from its default.|`''`|
-|`from`|Yes|A comma separated list of files to be copied. `from` and `to` are treated as parallel arrays; the first file specified by `from` will be copied to the first location specified by `to`, and so on. `$GITHUB_WORKSPACE$` is treated as the base directory, unless `src_path` is specified.||
-|`to`|Yes|A strictly comma separated list of files to be copied. `from` and `to` are treated as parallel arrays; the first file specified by `from` will be copied to the first location specified by `to`, and so on. `$GITHUB_WORKSPACE$` is treated as the base directory, unless`dst_path` is specified.||
+|`copy`|Yes|A comma separated list of source and destination pairings for copying a file. Each pairing is of the format `<from>:<to>`. $GITHUB_WORKSPACE$ is treated as the base directory, unless `src_path` and `dst_path` are specified.||
