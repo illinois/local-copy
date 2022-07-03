@@ -19,7 +19,9 @@ const preprocessCopyList = (copyList) => {
 var copyRecursiveSync = function(src, dest) {
 	var isDirectory = fs.statSync(src).isDirectory();
 	if (isDirectory) {
-	  fs.mkdirSync(dest);
+	  if (!fs.existsSync(dest)) {
+		fs.mkdirSync(dest);
+	  }
 	  fs.readdirSync(src).forEach(function(child) {
 		copyRecursiveSync(path.join(src, child),
 						  path.join(dest, child));
