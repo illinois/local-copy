@@ -2070,6 +2070,7 @@ var __webpack_exports__ = {};
 (() => {
 const core = __nccwpck_require__(442);
 const fs = __nccwpck_require__(147);
+const path = __nccwpck_require__(17);
 
 const preprocessCopyList = (copyList) => {
 	var prepList = copyList.replace(/\s/g, '');

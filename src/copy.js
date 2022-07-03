@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const fs = require('fs');
+const path = require('path');
 
 const preprocessCopyList = (copyList) => {
 	var prepList = copyList.replace(/\s/g, '');
