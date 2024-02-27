@@ -12,8 +12,8 @@ The following is an example of a short workflow snippet that uses `local-copy` t
 name: Test
 runs-on: ubuntu-latest
 steps:
-  - uses: actions/checkout@v2
-  - uses: illinois/local-copy@v1
+  - uses: actions/checkout@v4
+  - uses: illinois/local-copy@v2
     with:
       src_path: source
       dst_path: dest
